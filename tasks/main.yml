@@ -9,14 +9,14 @@
   copy:
     src: '../files/{{ item }}.conf'
     dest: '{{ nginx_avail_dir }}/{{ item }}'
-  loop: '{{ app_list }}'
+  loop: '{{ nginx_app_list }}'
 
 - name: Create symlinks to enable apps on nginx
   file:
     src: '{{ nginx_avail_dir }}/{{ item }}'
     dest: '{{ nginx_enable_dir }}/{{ item }}'
     state: link
-  loop: '{{ app_list }}'
+  loop: '{{ nginx_app_list }}'
 
 - name: Remove the default nginx static webapp
   file:
