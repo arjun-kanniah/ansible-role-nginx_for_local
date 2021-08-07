@@ -1,0 +1,7 @@
+---
+nginx_avail_dir: '/etc/nginx/sites-available'
+nginx_enable_dir: '/etc/nginx/sites-enabled'
+
+app_list:
+  - awx
+  - jenkins

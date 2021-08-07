@@ -1,0 +1,28 @@
+---
+- name: Install latest version of nginx
+  apt:
+    name: nginx
+    state: latest
+  notify: start nginx
+
+- name: Copy necessary nginx config files
+  copy:
+    src: '../files/{{ item }}.conf'
+    dest: '{{ nginx_avail_dir }}/{{ item }}'
+  loop: '{{ app_list }}'
+
+- name: Create symlinks to enable apps on nginx
+  file:
+    src: '{{ nginx_avail_dir }}/{{ item }}'
+    dest: '{{ nginx_enable_dir }}/{{ item }}'
+    state: link
+  loop: '{{ app_list }}'
+
+- name: Remove the default nginx static webapp
+  file:
+    path: '{{ item }}/default'
+    state: absent
+  loop:
+    - '{{ nginx_enable_dir }}'
+    - '{{ nginx_avail_dir }}'
+  notify: restart nginx
