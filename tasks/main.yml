@@ -25,4 +25,9 @@
   loop:
     - '{{ nginx_enable_dir }}'
     - '{{ nginx_avail_dir }}'
-  notify: start nginx
+
+- name: Ensure Nginx Service is running
+  service: 
+    name: nginx
+    state: restarted
+    use: service
