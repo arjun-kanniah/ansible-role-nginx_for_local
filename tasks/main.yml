@@ -25,4 +25,4 @@
   loop:
     - '{{ nginx_enable_dir }}'
     - '{{ nginx_avail_dir }}'
-  notify: restart nginx
+  notify: start nginx
